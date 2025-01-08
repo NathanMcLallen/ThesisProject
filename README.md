@@ -4,8 +4,11 @@ A pipeline that shuffles mutations in two homologous sequences then uses AlphaFo
 
 Requirements:
 Local colab fold: https://github.com/YoshitakaMo/localcolabfold
+
 Python 3.11.5
+
 PyQt6 
+
 Perl 5.31.1 (including List::Util and Time:HiRes modules)
 
 So far tested only on MacOS
