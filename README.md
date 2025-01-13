@@ -1,5 +1,5 @@
 # ThesisProject
-A pipeline that shuffles mutations in two homologous sequences then uses AlphaFold on the outputs to search for never-born proteins.
+A pipeline that shuffles mutations in two homologous sequences then uses AlphaFold on the outputs to determine mutation tolerance and search for never-born proteins.
 
 
 Requirements:
