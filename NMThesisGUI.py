@@ -430,7 +430,7 @@ class Ui_MainWindow(object):
             translateLast = True
         elif self.PolyButtonGroup.checkedId() == -4:
             translateFirst = False
-            translateAfter = False
+            translateLast = False
         # Set the folder where the shuffle input files are located and return error if it doesn't exist
         if self.RMInputButtonGroup.checkedId() == -2:
             RMinputFolder = sys.path[0] + self.RMInputEntryOne.text()
