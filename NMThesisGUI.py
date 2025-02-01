@@ -519,7 +519,7 @@ class Ui_MainWindow(object):
                 else:
                     # Call protein with n for last arg
                     os.system("perl newProteinShuffle.pl " + fullInput + " " + fullOutput + " " + speciesOne + " " + speciesTwo + " " + shufflesPerAlign + " " + windowSize + " " + useInDels + " n")
-            i = i + 1
+            
             
         
         
