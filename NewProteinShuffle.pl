@@ -63,7 +63,8 @@ while($line = <FILE>){
 	} else {	
 	
 		$tmp = $line;
-		$tmp =~ s/\n//;
+		#$tmp =~ s/\n//;
+		$tmp =~ s/[\r\n]//g;
 		
 		$sequences{$name} 
 			= $sequences{$name} . $tmp;
@@ -103,7 +104,8 @@ while($line = <FILE>){
 	} elsif($name ne "") {	
 	
 		$tmp = $line;
-		$tmp =~ s/\n//;
+		#$tmp =~ s/\n//;
+		$tmp =~ s/[\r\n]//g;
 		
 		$sequences{$name} 
 			= $sequences{$name} . $tmp;
