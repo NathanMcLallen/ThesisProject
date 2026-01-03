@@ -1,7 +1,7 @@
 # Usage:
 # /path/ucsf-chimerax/bin/ChimeraX /absolute/path/to/chimeraxScript.py 
 # With arguments in a 5 line cxScriptSettings.txt file with this program
-#<folder path> <shuffleNum> <use align (y) or matchmaker (n)> <Use uniprot (y) or in folder (n)>  <Uni ID or header 1> <Uni ID or header 2>
+#<folder path> <use align (a) or matchmaker (mm)> <Use uniprot (y) or in folder (n)>  <Uni ID or header 1> <Uni ID or header 2>
 
 from chimerax.core.commands import run #type: ignore
 import sys
