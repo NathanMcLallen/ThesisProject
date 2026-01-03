@@ -31,10 +31,10 @@ def main():
     uniprotIDOne = lines[5]
     uniprotIDTwo = lines[6]
 
+    # Define stuff for PDanalysis library
     min_plddt = 0
     neigh_cut = 13.0
     exitApp = False
-
     protein_kwargs = {"neigh_cut":neigh_cut, "min_plddt":min_plddt}
 
     if (not refsSameLength == "y") and (not refsSameLength == "n"):
@@ -52,7 +52,9 @@ def main():
     if (not refSource == "y") and (not refSource == "n"):
         print("Error: Ref source argument isn't y or n")
         return
-    # If uniprot
+    
+
+    # If uniprot (currently unused)
     if refSource == "y":
 
         # Get first part of headers from uniprot webserver, print error and exit program if needed
@@ -72,7 +74,7 @@ def main():
         run(session, "rename #2 " + refNameTwo)
 
 
-    # If headers
+    # If reference structures are in the folder, open them in ChimeraX
     elif refSource == "n":
         # This code for finding the folder name is from ChatGPT
         refNameOne = next((d for d in os.listdir(mainFolderPath) if "first_ref_" in d and os.path.isdir(os.path.join(mainFolderPath, d))), "missing")
@@ -103,7 +105,7 @@ def main():
         run(session, "rename #2 " + refNameTwo)
 
 
-
+    # Color the reference structures
     run(session, "color #1 pale goldenrod")
     run(session, "color #2 aquamarine")
     modelList = []
@@ -114,7 +116,6 @@ def main():
     numDropouts = 0
     i = 1
     while True:
-        
         dropoutNameStart = "dropout" + str(i)
         dropoutName = next((d for d in os.listdir(mainFolderPath) if dropoutNameStart in d and os.path.isdir(os.path.join(mainFolderPath, d))), "missing")
         if dropoutName == "missing":
@@ -137,18 +138,16 @@ def main():
         numDropouts = numDropouts + 1
         i = i + 1
         
-
+    # Align the reference structures and save RMSD
     refsRMSD = cxRMSD(1, 2, rmsdFunction)
 
+    # Creates folders where aligned structures of each dropout to both refs will be saved
     individualFolderOne = os.path.join(mainFolderPath, "individual_models_aligned_" + refNameOne)
     individualFolderTwo = os.path.join(mainFolderPath, "individual_models_aligned_" + refNameTwo)
-
     if os.path.exists(individualFolderOne):
         shutil.rmtree(individualFolderOne)
-    
     if os.path.exists(individualFolderTwo):
         shutil.rmtree(individualFolderTwo)
-
     os.makedirs(individualFolderOne)
     os.makedirs(individualFolderTwo)
 
@@ -242,7 +241,7 @@ def main():
             secondESList.append("NA")
             secondOtherRMSDList.append("NA")
 
-
+    # Save RMSD and ES values in a spreadsheet
     csvPath = os.path.join(mainFolderPath, "RMSD_values.csv")
     with open(csvPath, "w") as toWrite:
         if rmsdFunction == "y":
@@ -269,7 +268,7 @@ def main():
 
 
 
-
+# Unused function for getting the name of a protein given the uniprot ID
 def getUniprotName(ID):
     url = f"https://rest.uniprot.org/uniprotkb/{ID}.fasta"
     response = requests.get(url)
@@ -284,6 +283,7 @@ def getUniprotName(ID):
     else:
         return "Error: Uniprot server failed for " + ID
 
+# Function for finding the top ranked structure given a localcolabfold output folder
 def getCorrectFilename(folderPath):
     # Search each file for relaxed rank 1 or unrelaxed rank 1 and .pdb
     foundRelaxed = False

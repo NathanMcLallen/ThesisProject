@@ -19,11 +19,10 @@ class Ui_MainWindow(object):
         self.tabWidget.setGeometry(QtCore.QRect(0, 10, 1100, 600))
         self.tabWidget.setObjectName("tabWidget")
 
-    
+#######################################################
+            
         self.CombinedTab = QtWidgets.QWidget()
         self.CombinedTab.setObjectName("CombinedTab")
-
-
 
         self.InputTypeOne = QtWidgets.QRadioButton(parent=self.CombinedTab)
         self.InputTypeOne.setEnabled(True)
@@ -746,11 +745,15 @@ class Ui_MainWindow(object):
         self.errorMessageLabel.setHidden(True)
         self.StatusLabel.setHidden(True)
 
+        # If the user specified output folder doesn't exist, create it
         outputFolder = self.OutputEntry.text()
         if not os.path.exists(outputFolder):
             os.makedirs(outputFolder)
+
+        # Set the location for the file that will be created in the first step
         dropoutsPath = os.path.join(outputFolder, "dropouts.fasta")
         
+        # Set the number of dropouts to be created, a value of 0 or no provided value will indicate to make a dropout for every mutation
         dropoutCount = self.DropoutNumInput.text()
         if dropoutCount == "":
             dropoutCount == 0
@@ -763,12 +766,14 @@ class Ui_MainWindow(object):
         #    self.errorMessageLabel.setText("Too many dropouts")
         #    self.errorMessageLabel.setHidden(False)
         #    return
+
+        # Define the variable for whether conservative mutations should be included when creating the dropout sequences
         if self.ConservativesCheck.isChecked():
             useConservatives = "y"
         else:
             useConservatives = "n"
 
-        # If uniprot is selected as input method
+        # If uniprot is selected as input method (CURRENTLY UNUSED)
         if self.CombinedButtonGroup.checkedId() == -2:
             uniIDOne = self.UniIDInputOne.text()
             uniIDTwo = self.UniIDInputTwo.text()
@@ -800,7 +805,7 @@ class Ui_MainWindow(object):
                 useUniStructures = True
 
             inputFilePath = dropoutsPath
-        # If alignment file is selected as input method
+        # If alignment file is selected as input method, check to ensure the file exists
         elif self.CombinedButtonGroup.checkedId() == -3:
 
             foldRefs = "y"
@@ -813,43 +818,50 @@ class Ui_MainWindow(object):
                 self.errorMessageLabel.setHidden(False)
                 return
         
+        # Check that the number of recycles given is valid
+        numRecycles = self.RecyclesInput.text()
+        if not numRecycles.isdigit():
+            self.errorMessageLabel.setText("Number of recycles contains non-numeric characters")
+            self.errorMessageLabel.setHidden(False)
+            return
+        
+        # Check that the provided ChimeraX is correct
         cxPath = self.ChimeraPathEntry.text()
         if not os.path.exists(cxPath):
                 self.errorMessageLabel.setText("ChimeraX path doesn't exist")
                 self.errorMessageLabel.setHidden(False)
                 return
 
+        # Define the variable for which ChimeraX function should be used for structure alignment
         if self.MatchmakeButton.isChecked():
             alignFunction = "mm"
         elif self.AlignButton.isChecked():
             alignFunction = "a"
 
+        # Read user input for whether the provided reference sequences are the same length
         if self.SameLengthCheck.isChecked():
             areSameLength = "y"
         else:
             areSameLength = "n"
+
 
         if areSameLength == "n" and alignFunction == "a":
             self.errorMessageLabel.setText("Align function was chosen but refs aren't same length")
             self.errorMessageLabel.setHidden(False)
             return
 
+        # Call the script to generate dropouts
         dropoutCommand = ["python", "Dropout_generator.py", inputFilePath, dropoutsPath, useConservatives, str(dropoutCount)]
         os.system(" ".join(dropoutCommand))
 
         self.StatusLabel.setText("Dropouts generated")
         self.StatusLabel.setHidden(False)
 
-        numRecycles = self.RecyclesInput.text()
-        if not numRecycles.isdigit():
-            self.errorMessageLabel.setText("Number of recycles contains non-numeric characters")
-            self.errorMessageLabel.setHidden(False)
-            return
+        # Define the variables for whether colabfold should use templates and relaxation
         if self.TemplatesCheck.isChecked():
             useTemplates = "y"
         else:
             useTemplates = "n"
-
         if self.RelaxCheck.isChecked():
             useRelaxation = "y"
         else:
@@ -860,6 +872,8 @@ class Ui_MainWindow(object):
         #    self.errorMessageLabel.setText(foldingStatus)
         #    self.errorMessageLabel.setHidden(False)
         #    return
+            
+        # Call the script for using local colab fold to predict structures
         foldingCommand = ["python", "local_colab_script.py", dropoutsPath, outputFolder, foldRefs, numRecycles, useTemplates, useRelaxation]
         os.system(" ".join(foldingCommand))
         
@@ -867,7 +881,7 @@ class Ui_MainWindow(object):
 
         
 
-
+        # Create a settings file for the chimerax script to read
         with open("cxScriptSettings.txt", "w") as toWrite:
             toWrite.write(outputFolder + "\n")
             #toWrite.write(str(shuffleCount) + "\n")
@@ -882,6 +896,7 @@ class Ui_MainWindow(object):
                 toWrite.write("NA")
                 toWrite.write("NA")
 
+        # Call the chimerax script
         thisPath = sys.path[0]
         os.system(cxPath + " " + os.path.join(thisPath, "chimeraxScript.py"))
         os.remove("cxScriptSettings.txt")
@@ -892,10 +907,12 @@ class Ui_MainWindow(object):
         self.SerrorMessageLabel.setHidden(True)
         self.SStatusLabel.setHidden(True)
 
+        # If the user specified output folder doesn't exist, create it
         dropoutsPath = self.SOutputEntry.text()
         if not os.path.exists(os.path.dirname(dropoutsPath)):
             os.makedirs(os.path.dirname(dropoutsPath))
         
+        # Set the number of dropouts to be created, a value of 0 or no provided value will indicate to make a dropout for every mutation
         dropoutCount = self.SDropoutNumInput.text()
         if dropoutCount == "":
             dropoutCount == 0
@@ -905,13 +922,13 @@ class Ui_MainWindow(object):
             return
         dropoutCount = int(dropoutCount)
 
-
+        # Define the variable for whether conservative mutations should be included when creating the dropout sequences
         if self.SConservativesCheck.isChecked():
             useConservatives = "y"
         else:
             useConservatives = "n"
 
-        # If uniprot is selected as input method
+        # If uniprot is selected as input method (CURRENTLY UNUSED)
         if self.ShuffleButtonGroup.checkedId() == -2:
             uniIDOne = self.SUniIDInputOne.text()
             uniIDTwo = self.SUniIDInputTwo.text()
@@ -937,7 +954,7 @@ class Ui_MainWindow(object):
 
 
             inputFilePath = dropoutsPath
-        # If fasta file is selected as input method
+        # If fasta file is selected as input method, check to ensure the file exists
         elif self.ShuffleButtonGroup.checkedId() == -3:
 
             inputFilePath = self.SInputFileEntry.text()
@@ -946,7 +963,7 @@ class Ui_MainWindow(object):
                 self.SerrorMessageLabel.setHidden(False)
                 return
             
-
+        # Call the script to generate dropouts
         dropoutCommand = ["python", "Dropout_generator.py", inputFilePath, dropoutsPath, useConservatives, str(dropoutCount)]
         os.system(" ".join(dropoutCommand))
 
@@ -957,31 +974,35 @@ class Ui_MainWindow(object):
         self.FerrorMessageLabel.setHidden(True)
         self.FStatusLabel.setHidden(True)
 
+        # If the user specified output folder doesn't exist, create it
         outputFolder = self.FOutputEntry.text()
         if not os.path.exists(outputFolder):
             os.makedirs(outputFolder)
 
+        # Check to make sure that the provided input path exists
         inputFilePath = self.FInputFileEntry.text()
         if not os.path.exists(inputFilePath):
             self.FerrorMessageLabel.setText("Input file doesn't exist")
             self.FerrorMessageLabel.setHidden(False)
             return
         
+        # Define the variables for whether colabfold should use templates and relaxation
         if self.FTemplatesCheck.isChecked():
             useTemplates = "y"
         else:
             useTemplates = "n"
-
         if self.FRelaxCheck.isChecked():
             useRelaxation = "y"
         else:
             useRelaxation = "n"
 
+        # Currently unused
         if self.FRefFoldCheck.isChecked():
             shouldFoldRefs = "y"
         else:
             shouldFoldRefs = "n"
 
+        # Currently unused
         dropoutCount = self.FDropoutNumInput.text()
         if dropoutCount == "":
             dropoutCount == 0
@@ -994,6 +1015,8 @@ class Ui_MainWindow(object):
         #    self.FerrorMessageLabel.setText("Too many shuffles")
         #    self.FerrorMessageLabel.setHidden(False)
         #    return
+
+        # Check that the recycles number provided is valid
         numRecycles = self.FRecyclesInput.text()
         if not numRecycles.isdigit():
             self.FerrorMessageLabel.setText("Number of recycles contains non-numeric characters")
@@ -1006,6 +1029,8 @@ class Ui_MainWindow(object):
         #    self.FerrorMessageLabel.setText(foldingStatus)
         #    self.FerrorMessageLabel.setHidden(False)
         #    return
+
+        # Call the script to use local colab fold for structure prediction
         foldingCommand = ["python", "local_colab_script.py", inputFilePath, outputFolder, shouldFoldRefs, numRecycles, useTemplates, useRelaxation]
         os.system(" ".join(foldingCommand))
         
@@ -1015,18 +1040,21 @@ class Ui_MainWindow(object):
         self.AerrorMessageLabel.setHidden(True)
         self.AStatusLabel.setHidden(True)
 
+        # Check that the input path provided is valid
         inputFolderPath = self.AInputFolderEntry.text()
         if not os.path.exists(inputFolderPath):
             self.AerrorMessageLabel.setText("Input folder doesn't exist")
             self.AerrorMessageLabel.setHidden(False)
             return
 
+        # Currently unused
         shuffleCount = self.AShuffleNumInput.text()
         if not shuffleCount.isdigit():
             self.AerrorMessageLabel.setText("Shuffle number contains non-numeric characters")
             self.AerrorMessageLabel.setHidden(False)
             return
 
+        # Currently unused (button two always on)
         if self.ARefButtonOne.isChecked():
             refSource = "y"
             uniIDOne = self.AUniIDInputOne.text()
@@ -1038,6 +1066,7 @@ class Ui_MainWindow(object):
             uniIDOne = "NA"
             uniIDTwo = "NA"
         
+        # Check that path to the ChimeraX program is valid
         cxPath = self.AChimeraPathEntry.text()
         if not os.path.exists(cxPath):
             self.AerrorMessageLabel.setText("ChimeraX path doesn't exist")
@@ -1074,6 +1103,8 @@ class Ui_MainWindow(object):
         self.AStatusLabel.setText("Finished")
         self.AStatusLabel.setHidden(False)
 
+
+# Function to return the name and sequence given a uniprot ID (currently unused)
 def getUniprot(ID):
     url = f"https://rest.uniprot.org/uniprotkb/{ID}.fasta"
     response = requests.get(url)
@@ -1090,39 +1121,7 @@ def getUniprot(ID):
         return "error"
 
 
-# def foldShuffles(inputFile, outputFolder, foldRefs, shuffleNum, numRecycles, templates, relaxation, statusObject):
-#     statusObject.setText("Folding shuffles")
-#     generalCommand = "colabfold_batch"
-#     if relaxation:
-#         generalCommand = generalCommand + " --amber"
-#     if templates:
-#         generalCommand = generalCommand + " --templates"
-#     generalCommand = generalCommand + " --num-recycle " + str(numRecycles) + " "
 
-#     i = 0
-#     timesToLoop = shuffleNum + 2
-#     for record in SeqIO.parse(inputFile, "fasta"):
-#         i = i + 1
-
-#         if (i == 1 or i == 2) and (not foldRefs):
-#             continue
-#         if i > timesToLoop:
-#             break
-
-#         tempFilePath = os.path.join(outputFolder, "temporary.fasta")
-#         with open(tempFilePath, "w") as tempFile:
-#             tempFile.write(">" + record.description + "\n")
-#             tempFile.write(str(record.seq))
-        
-#         specificOutput = os.path.join(outputFolder, record.description)
-
-#         statusObject.setText("Folding " + record.description)
-
-#         os.system(generalCommand + " " + tempFilePath + " " + specificOutput)
-
-#         os.remove(tempFilePath)
-
-#     return "none"
 
 
 

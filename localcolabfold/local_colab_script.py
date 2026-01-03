@@ -27,7 +27,7 @@ if (not templates == "y") and (not templates == "n"):
 if (not relaxation == "y") and (not relaxation == "n"):
     raise ValueError("Argument for whether or not to use relaxation isn't y or n")
 
-
+# Define the command that will be reused for each sequence
 generalCommand = "colabfold_batch"
 if relaxation == "y":
     generalCommand = generalCommand + " --amber"
@@ -35,6 +35,7 @@ if templates == "y":
     generalCommand = generalCommand + " --templates"
 generalCommand = generalCommand + " --num-recycle " + str(numRecycles) + " "
 
+# For each sequence in the input file, create a temporary fasta with just one sequence and call local colab fold
 i = 0
 for record in SeqIO.parse(inputFile, "fasta"):
     i = i + 1

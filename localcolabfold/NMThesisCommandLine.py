@@ -24,12 +24,11 @@ if args.step:
 else:
     stepToDo = 0
 
+# Errors for invalid input arguments or argument combinations
 if not args.cx_path and (stepToDo == 0 or stepToDo == 3):
     raise Exception("ChimeraX path argument is required for step 3 or all steps")
 elif not os.path.exists(args.cx_path):
     raise Exception("ChimeraX path is incorrect")
-
-
 
 if not stepToDo == 3 and not args.output:
     raise Exception("Output path is needed but not provided")
