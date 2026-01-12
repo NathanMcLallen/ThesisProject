@@ -25,8 +25,8 @@ def main():
     except:
         raise TypeError("Argument for number of dropouts isn't an integer")
     
-    if not os.path.exists(outputPath):
-        os.makedirs(outputPath)
+    if not os.path.exists(os.path.dirname(outputPath)):
+        os.makedirs(os.path.dirname(outputPath))
 
 
     # Read in the sequences and names from the provided alignment file
@@ -84,6 +84,7 @@ def main():
         output.write(">second_ref_" + nameSecond + "\n")
         output.write(seqSecond + "\n\n")
     # Add dropouts containing only one mutation each
+    i = 1
     for mutation in mutationList:
         mutationName = mutation[0]
         mutationType = mutation[1]
@@ -100,7 +101,6 @@ def main():
 
             dropoutSequence = seqFirstTemplate[:mutationIndex] + seqFirstTemplate[mutationIndex + 1:]
 
-        i = 1
         with open(outputPath, "a") as output:
             output.write(">dropout" + str(i) + "_" + mutationName + "\n")
             output.write(dropoutSequence + "\n\n")

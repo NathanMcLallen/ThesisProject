@@ -20,16 +20,16 @@ def main():
         lines = file.readlines()
         lines = [line.strip() for line in lines]
 
-    if not len(lines) == 7:
+    if not len(lines) == 6:
         print("Error: Wrong number of arguments")
         return
 
     mainFolderPath = lines[0]
     rmsdFunction = lines[1] # string of "mm" or "a"
-    refsSameLength = lines[3] # String of "y" or "n"
-    refSource = lines[4] # String of "y" or "n"
-    uniprotIDOne = lines[5]
-    uniprotIDTwo = lines[6]
+    refsSameLength = lines[2] # String of "y" or "n"
+    refSource = lines[3] # String of "y" or "n"
+    uniprotIDOne = lines[4]
+    uniprotIDTwo = lines[5]
 
     # Define stuff for PDanalysis library
     min_plddt = 0
@@ -220,7 +220,7 @@ def main():
 
 
     # ES/RMSD of refs and each shuffle to each ref
-    if (refsSameLength == "Yes"):
+    if (refsSameLength == "y"):
         refsESRMSD = ESRMSD(os.path.join(individualFolderTwo, modelList[0]) + ".pdb", os.path.join(individualFolderTwo, modelList[1]) + ".pdb", protein_kwargs)
     else:
         refsESRMSD = ["NA", "NA"]
@@ -233,7 +233,7 @@ def main():
         theESRMSD = ESRMSD(os.path.join(individualFolderOne, modelList[0]) + ".pdb", os.path.join(individualFolderOne, modelList[i+2]) + ".pdb", protein_kwargs)
         firstESList.append(theESRMSD[0])
         firstOtherRMSDList.append(theESRMSD[1])
-        if (refsSameLength == "Yes"):
+        if (refsSameLength == "y"):
             theESRMSD = ESRMSD(os.path.join(individualFolderTwo, modelList[1]) + ".pdb", os.path.join(individualFolderTwo, modelList[i+2]) + ".pdb", protein_kwargs)
             secondESList.append(theESRMSD[0])
             secondOtherRMSDList.append(theESRMSD[1])
@@ -254,8 +254,8 @@ def main():
 
         toWrite.write(" ," + refNameOne + ", , , ," + refNameTwo + "\n")
         toWrite.write(" ,ChimeraX RMSD,Effective strain,Other RMSD, ,ChimeraX RMSD,Effective strain,Other RMSD")
-        for i in range(1, numDropouts + 1):
-            toWrite.write("\ndropout" + str(i) + "," + str(firstCXRMSDList[i]) + "," + str(firstESList[i]) + "," + str(firstOtherRMSDList[i]) + ", ," + str(secondCXRMSDList[i]) + "," + str(secondESList[i]) + "," + str(secondOtherRMSDList[i]))
+        for i in range(numDropouts):
+            toWrite.write("\ndropout" + str(i+1) + "," + str(firstCXRMSDList[i]) + "," + str(firstESList[i]) + "," + str(firstOtherRMSDList[i]) + ", ," + str(secondCXRMSDList[i]) + "," + str(secondESList[i]) + "," + str(secondOtherRMSDList[i]))
 
 
 
@@ -310,10 +310,10 @@ def cxRMSD(firstModelNum, secondModelNum, rmsdFunction):
     secondBackbone = "#" + str(secondModelNum) + "@ca"
     modelPair = firstBackbone + " to " + secondBackbone
     # Align function
-    if rmsdFunction == "y":
+    if rmsdFunction == "align":
         run(session, "align " + modelPair)
         return run(session, "rmsd " + modelPair)
-    elif rmsdFunction == "n":
+    elif rmsdFunction == "matchmake":
         jsonData = run(session, "matchmake " + modelPair)
         jsonData = jsonData[0]
         return jsonData["full RMSD"]
