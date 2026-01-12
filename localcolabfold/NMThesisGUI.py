@@ -78,6 +78,7 @@ class Ui_MainWindow(object):
         self.UniRefoldCheck.setGeometry(QtCore.QRect(40, 140, 211, 20))
         self.UniRefoldCheck.setObjectName("UniRefoldCheck")
         self.UniRefoldCheck.setHidden(True)
+        self.UniRefoldCheck.setChecked(True)
 
 
 
@@ -94,24 +95,25 @@ class Ui_MainWindow(object):
         self.SequencesBox = QtWidgets.QGroupBox(parent=self.CombinedTab)
         self.SequencesBox.setGeometry(QtCore.QRect(40, 370, 141, 151))
         self.SequencesBox.setObjectName("SequencesBox")
+        self.SequencesBox.setHidden(True)
 
-        self.SequencesLabelOne = QtWidgets.QLabel(parent=self.HeadersBox)
-        self.SequencesLabelOne.setGeometry(QtCore.QRect(5, 69, 10, 21))
-        self.SequencesLabelOne.setObjectName("SequencesLabelOne")
+        #self.SequencesLabelOne = QtWidgets.QLabel(parent=self.HeadersBox)
+        #self.SequencesLabelOne.setGeometry(QtCore.QRect(5, 69, 10, 21))
+        #self.SequencesLabelOne.setObjectName("SequencesLabelOne")
 
-        self.SequencesLabelTwo = QtWidgets.QLabel(parent=self.HeadersBox)
-        self.SequencesLabelTwo.setGeometry(QtCore.QRect(5, 109, 9, 21))
-        self.SequencesLabelTwo.setObjectName("SequencesLabelTwo")
+        #self.SequencesLabelTwo = QtWidgets.QLabel(parent=self.HeadersBox)
+        #self.SequencesLabelTwo.setGeometry(QtCore.QRect(5, 109, 9, 21))
+        #self.SequencesLabelTwo.setObjectName("SequencesLabelTwo")
 
-        self.SequencesInputOne = QtWidgets.QLineEdit(parent=self.HeadersBox)
-        self.SequencesInputOne.setGeometry(QtCore.QRect(20, 70, 113, 21))
-        self.SequencesInputOne.setText("1")
-        self.SequencesInputOne.setObjectName("SequencesInputOne")
+        #self.SequencesInputOne = QtWidgets.QLineEdit(parent=self.HeadersBox)
+        #self.SequencesInputOne.setGeometry(QtCore.QRect(20, 70, 113, 21))
+        #self.SequencesInputOne.setText("1")
+        #self.SequencesInputOne.setObjectName("SequencesInputOne")
 
-        self.SequencesInputTwo = QtWidgets.QLineEdit(parent=self.HeadersBox)
-        self.SequencesInputTwo.setGeometry(QtCore.QRect(20, 110, 113, 21))
-        self.SequencesInputTwo.setText("2")
-        self.SequencesInputTwo.setObjectName("SequencesInputTwo")
+        #self.SequencesInputTwo = QtWidgets.QLineEdit(parent=self.HeadersBox)
+        #self.SequencesInputTwo.setGeometry(QtCore.QRect(20, 110, 113, 21))
+        #self.SequencesInputTwo.setText("2")
+        #self.SequencesInputTwo.setObjectName("SequencesInputTwo")
 
 
 
@@ -288,24 +290,25 @@ class Ui_MainWindow(object):
         self.SSequencesBox = QtWidgets.QGroupBox(parent=self.ShuffleTab)
         self.SSequencesBox.setGeometry(QtCore.QRect(40, 370, 141, 151))
         self.SSequencesBox.setObjectName("SSequencesBox")
+        self.SSequencesBox.setHidden(True)
 
-        self.SSequencesLabelOne = QtWidgets.QLabel(parent=self.SHeadersBox)
-        self.SSequencesLabelOne.setGeometry(QtCore.QRect(5, 69, 10, 21))
-        self.SSequencesLabelOne.setObjectName("SSequencesLabelOne")
+        #self.SSequencesLabelOne = QtWidgets.QLabel(parent=self.SHeadersBox)
+        #self.SSequencesLabelOne.setGeometry(QtCore.QRect(5, 69, 10, 21))
+        #self.SSequencesLabelOne.setObjectName("SSequencesLabelOne")
 
-        self.SSequencesLabelTwo = QtWidgets.QLabel(parent=self.SHeadersBox)
-        self.SSequencesLabelTwo.setGeometry(QtCore.QRect(5, 109, 9, 21))
-        self.SSequencesLabelTwo.setObjectName("SSequencesLabelTwo")
+        #self.SSequencesLabelTwo = QtWidgets.QLabel(parent=self.SHeadersBox)
+        #self.SSequencesLabelTwo.setGeometry(QtCore.QRect(5, 109, 9, 21))
+        #self.SSequencesLabelTwo.setObjectName("SSequencesLabelTwo")
 
-        self.SSequencesInputOne = QtWidgets.QLineEdit(parent=self.SHeadersBox)
-        self.SSequencesInputOne.setGeometry(QtCore.QRect(20, 70, 113, 21))
-        self.SSequencesInputOne.setText("1")
-        self.SSequencesInputOne.setObjectName("SSequencesInputOne")
+        #self.SSequencesInputOne = QtWidgets.QLineEdit(parent=self.SHeadersBox)
+        #self.SSequencesInputOne.setGeometry(QtCore.QRect(20, 70, 113, 21))
+        #self.SSequencesInputOne.setText("1")
+        #self.SSequencesInputOne.setObjectName("SSequencesInputOne")
 
-        self.SSequencesInputTwo = QtWidgets.QLineEdit(parent=self.SHeadersBox)
-        self.SSequencesInputTwo.setGeometry(QtCore.QRect(20, 110, 113, 21))
-        self.SSequencesInputTwo.setText("2")
-        self.SSequencesInputTwo.setObjectName("SSequencesInputTwo")
+        #self.SSequencesInputTwo = QtWidgets.QLineEdit(parent=self.SHeadersBox)
+        #self.SSequencesInputTwo.setGeometry(QtCore.QRect(20, 110, 113, 21))
+        #self.SSequencesInputTwo.setText("2")
+        #self.SSequencesInputTwo.setObjectName("SSequencesInputTwo")
 
 
 
@@ -538,7 +541,7 @@ class Ui_MainWindow(object):
 
         self.AShuffleNumInput = QtWidgets.QLineEdit(parent=self.AnalyzeTab)
         self.AShuffleNumInput.setGeometry(QtCore.QRect(120, 170, 113, 21))
-        self.AShuffleNumInput.setText("")
+        self.AShuffleNumInput.setText("0")
         self.AShuffleNumInput.setObjectName("AShuffleNumInput")
         self.AShuffleNumInput.setHidden(True)
 
@@ -653,8 +656,8 @@ class Ui_MainWindow(object):
         self.InputTypeOne.setText(_translate("MainWindow", "Uniprot entries"))
         self.InputTypeTwo.setText(_translate("MainWindow", "Alignment file"))
         self.SequencesBox.setTitle(_translate("MainWindow", "Select sequences in alignment file"))
-        self.SequencesLabelOne.setText(_translate("MainWindow", "Ref"))
-        self.SequencesLabelTwo.setText(_translate("MainWindow", "Mutated"))
+        #self.SequencesLabelOne.setText(_translate("MainWindow", "Ref"))
+        #self.SequencesLabelTwo.setText(_translate("MainWindow", "Mutated"))
         self.AlignAlgoBox.setTitle(_translate("MainWindow", "Choose structure alignment algorithim"))
         self.AAlignAlgoBox.setTitle(_translate("MainWindow", "Choose structure alignment algorithim"))
         self.MatchmakeButton.setText(_translate("MainWindow", "Matchmake (required for different length refs)"))
@@ -683,8 +686,8 @@ class Ui_MainWindow(object):
         self.UniRefoldCheck.setText(_translate("MainWindow", "Refold references"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.CombinedTab), _translate("MainWindow", "Combined"))
         self.SSequencesBox.setTitle(_translate("MainWindow", "Select sequences in alignment file"))
-        self.SSequencesLabelOne.setText(_translate("MainWindow", "Ref"))
-        self.SSequencesLabelTwo.setText(_translate("MainWindow", "Mutated"))
+        #self.SSequencesLabelOne.setText(_translate("MainWindow", "Ref"))
+        #self.SSequencesLabelTwo.setText(_translate("MainWindow", "Mutated"))
         #self.AHeadersLabelZero.setText(_translate("MainWindow", "Provide references"))
         #self.AHeadersLabelOne.setText(_translate("MainWindow", "Ref"))
         #self.AHeadersLabelTwo.setText(_translate("MainWindow", "Muatated"))
@@ -736,9 +739,9 @@ class Ui_MainWindow(object):
         self.AUniIDLabelOne.setText(_translate("MainWindow", "First"))
         self.AUniIDLabelTwo.setText(_translate("MainWindow", "Second"))
         self.ChimeraPathLabel.setText(_translate("MainWindow", "ChimeraX exe path"))
-        self.ChimeraPathEntry.setText(_translate("MainWindow", "/Applications/ChimeraX-1.9.app/Contents/bin/ChimeraX"))
+        self.ChimeraPathEntry.setText(_translate("MainWindow", "/lib/ucsf-chimerax/bin/ChimeraX"))
         self.AChimeraPathLabel.setText(_translate("MainWindow", "ChimeraX exe path"))
-        self.AChimeraPathEntry.setText(_translate("MainWindow", "/Applications/ChimeraX-1.9.app/Contents/bin/ChimeraX"))
+        self.AChimeraPathEntry.setText(_translate("MainWindow", "/lib/ucsf-chimerax/bin/ChimeraX"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.AnalyzeTab), _translate("MainWindow", "Analyze"))
 
     def combinedFunction(self):
@@ -799,10 +802,7 @@ class Ui_MainWindow(object):
 
 
 
-            if self.UniRefoldCheck.isChecked():
-                useUniStructures = False
-            else:
-                useUniStructures = True
+
 
             inputFilePath = dropoutsPath
         # If alignment file is selected as input method, check to ensure the file exists
@@ -817,6 +817,11 @@ class Ui_MainWindow(object):
                 self.errorMessageLabel.setText("Input alignment file doesn't exist")
                 self.errorMessageLabel.setHidden(False)
                 return
+
+        if self.UniRefoldCheck.isChecked():
+            useUniStructures = False
+        else:
+            useUniStructures = True
         
         # Check that the number of recycles given is valid
         numRecycles = self.RecyclesInput.text()
@@ -899,7 +904,7 @@ class Ui_MainWindow(object):
         # Call the chimerax script
         thisPath = sys.path[0]
         os.system(cxPath + " " + os.path.join(thisPath, "chimeraxScript.py"))
-        os.remove("cxScriptSettings.txt")
+        #os.remove("cxScriptSettings.txt")
         self.StatusLabel.setText("Finished")
 
         
@@ -907,10 +912,7 @@ class Ui_MainWindow(object):
         self.SerrorMessageLabel.setHidden(True)
         self.SStatusLabel.setHidden(True)
 
-        # If the user specified output folder doesn't exist, create it
-        dropoutsPath = self.SOutputEntry.text()
-        if not os.path.exists(os.path.dirname(dropoutsPath)):
-            os.makedirs(os.path.dirname(dropoutsPath))
+
         
         # Set the number of dropouts to be created, a value of 0 or no provided value will indicate to make a dropout for every mutation
         dropoutCount = self.SDropoutNumInput.text()
@@ -943,26 +945,30 @@ class Ui_MainWindow(object):
                 self.SerrorMessageLabel.setText("Could not fetch sequence for second uniprot ID")
                 self.SerrorMessageLabel.setHidden(False)
                 return
-            with open(dropoutsPath, "w") as output:
-                output.write(firstUniEntry[0])
-                output.write("\n")
-                output.write(firstUniEntry[1])
-                output.write("\n")
-                output.write(secondUniEntry[0])
-                output.write("\n")
-                output.write(secondUniEntry[1])
+            #with open(dropoutsPath, "w") as output:
+            #    output.write(firstUniEntry[0])
+            #    output.write("\n")
+            #    output.write(firstUniEntry[1])
+            #    output.write("\n")
+            #    output.write(secondUniEntry[0])
+            #    output.write("\n")
+            #    output.write(secondUniEntry[1])
 
 
-            inputFilePath = dropoutsPath
+            #inputFilePath = dropoutsPath
         # If fasta file is selected as input method, check to ensure the file exists
         elif self.ShuffleButtonGroup.checkedId() == -3:
-
             inputFilePath = self.SInputFileEntry.text()
             if not os.path.exists(inputFilePath):
                 self.SerrorMessageLabel.setText("Input file doesn't exist")
                 self.SerrorMessageLabel.setHidden(False)
                 return
-            
+
+        # If the user specified output folder doesn't exist, create it
+        dropoutsPath = self.SOutputEntry.text()
+        if not os.path.exists(os.path.dirname(dropoutsPath)):
+            os.makedirs(os.path.dirname(dropoutsPath))
+
         # Call the script to generate dropouts
         dropoutCommand = ["python", "Dropout_generator.py", inputFilePath, dropoutsPath, useConservatives, str(dropoutCount)]
         os.system(" ".join(dropoutCommand))
