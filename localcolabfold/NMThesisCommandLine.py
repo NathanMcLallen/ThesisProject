@@ -13,7 +13,7 @@ parser.add_argument("-t", "--use_templates", type=str, choices=["y", "n"])
 parser.add_argument("-rx", "--use_relaxation", type=str, choices=["y", "n"])
 parser.add_argument("-l", "--same_length_refs", type=str, choices=["y", "n"])
 parser.add_argument("-a", "--align_algo", type=str, choices=["matchmake", "align"])
-parser.add_argument("-d", "num_dropouts", type=int)
+parser.add_argument("-d", "--num_dropouts", type=int)
 args = parser.parse_args()
 
 if not os.path.exists(args.input_path):
@@ -27,8 +27,9 @@ else:
 # Errors for invalid input arguments or argument combinations
 if not args.cx_path and (stepToDo == 0 or stepToDo == 3):
     raise Exception("ChimeraX path argument is required for step 3 or all steps")
-elif not os.path.exists(args.cx_path):
-    raise Exception("ChimeraX path is incorrect")
+elif stepToDo == 0 or stepToDo == 3:
+    if not os.path.exists(args.cx_path):
+        raise Exception("ChimeraX path is incorrect")
 
 if not stepToDo == 3 and not args.output:
     raise Exception("Output path is needed but not provided")
@@ -41,15 +42,23 @@ else:
 
 if not args.include_conservatives:
     useConservatives = "y"
+else:
+    useConservatives = args.include_conservatives
 
 if not args.use_templates:
     useTemplates = "n"
+else:
+    useTemplates = args.use_templates
 
 if not args.use_relaxation:
     useRelaxation = "y"
+else:
+    useRelaxation = args.use_relaxation
 
 if not args.same_length_refs:
     sameLength = "n"
+else:
+    sameLength = args.same_length_refs
 
 if args.align_algo == "align":
     alignAlgo = "a"
@@ -63,18 +72,24 @@ if alignAlgo == "a" and sameLength == "n":
 if stepToDo == 1:
     outputFolder = os.path.dirname(args.output)
     dropoutsPath = args.output
-else:
+elif stepToDo == 0:
     outputFolder = args.output
+    dropoutsPath = os.path.join(outputFolder, "dropouts.fasta")
+elif stepToDo == 2:
+    outputFolder = args.output
+    dropoutsPath = args.input_path
+elif stepToDo == 3:
+    outputFolder = args.input_path
 
 if not os.path.exists(outputFolder):
     os.makedirs(outputFolder)
 
 if stepToDo == 0 or stepToDo == 1:
-    dropoutCommand = ["python", "Dropout_generator.py", args.input_path, dropoutsPath, useConservatives, 0]
+    dropoutCommand = ["python", "Dropout_generator.py", args.input_path, dropoutsPath, useConservatives, str(0)]
     os.system(" ".join(dropoutCommand))
 
 if stepToDo == 0 or stepToDo == 2:
-    foldingCommand = ["python", "local_colab_script.py", dropoutsPath, outputFolder, "y", numRecycles, useTemplates, useRelaxation]
+    foldingCommand = ["python", "local_colab_script.py", dropoutsPath, outputFolder, "y", str(numRecycles), useTemplates, useRelaxation]
     os.system(" ".join(foldingCommand))
 
 if stepToDo == 0 or stepToDo == 3:
