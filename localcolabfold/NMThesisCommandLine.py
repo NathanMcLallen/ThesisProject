@@ -11,8 +11,8 @@ parser.add_argument("-rc", "--num_recycles", type=int, choices=[0, 1, 2, 3, 4, 5
 parser.add_argument("-c", "--include_conservatives", type=str, choices=["y", "n"])
 parser.add_argument("-t", "--use_templates", type=str, choices=["y", "n"])
 parser.add_argument("-rx", "--use_relaxation", type=str, choices=["y", "n"])
-parser.add_argument("-l", "--same_length_refs", type=str, choices=["y", "n"])
-parser.add_argument("-a", "--align_algo", type=str, choices=["matchmake", "align"])
+#parser.add_argument("-l", "--same_length_refs", type=str, choices=["y", "n"])
+#parser.add_argument("-a", "--align_algo", type=str, choices=["matchmake", "align"])
 parser.add_argument("-d", "--num_dropouts", type=int)
 args = parser.parse_args()
 
@@ -55,18 +55,18 @@ if not args.use_relaxation:
 else:
     useRelaxation = args.use_relaxation
 
-if not args.same_length_refs:
-    sameLength = "n"
-else:
-    sameLength = args.same_length_refs
+#if not args.same_length_refs:
+#    sameLength = "n"
+#else:
+#    sameLength = args.same_length_refs
 
-if args.align_algo == "align":
-    alignAlgo = "a"
-else:
-    alignAlgo = "mm"
+#if args.align_algo == "align":
+#    alignAlgo = "a"
+#else:
+#    alignAlgo = "mm"
 
-if alignAlgo == "a" and sameLength == "n":
-    raise Exception("Refs aren't same length but align algorithm was chosen")
+#if alignAlgo == "a" and sameLength == "n":
+#    raise Exception("Refs aren't same length but align algorithm was chosen")
 
 
 if stepToDo == 1:
@@ -95,8 +95,8 @@ if stepToDo == 0 or stepToDo == 2:
 if stepToDo == 0 or stepToDo == 3:
     with open("cxScriptSettings.txt", "w") as toWrite:
         toWrite.write(outputFolder + "\n")
-        toWrite.write(alignAlgo + "\n")
-        toWrite.write(sameLength + "\n")
+        #toWrite.write(alignAlgo + "\n")
+        #toWrite.write(sameLength + "\n")
         toWrite.write("n" + "\n")
         toWrite.write("NA" + "\n")
         toWrite.write("NA")

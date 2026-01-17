@@ -166,12 +166,14 @@ class Ui_MainWindow(object):
         self.AlignAlgoBox = QtWidgets.QGroupBox(parent=self.CombinedTab)
         self.AlignAlgoBox.setGeometry(QtCore.QRect(750, 80, 331, 91))
         self.AlignAlgoBox.setObjectName("AlignAlgoBox")
+        self.AlignAlgoBox.setHidden(True)
 
         self.MatchmakeButton = QtWidgets.QRadioButton(parent=self.AlignAlgoBox)
         self.MatchmakeButton.setGeometry(QtCore.QRect(20, 30, 301, 20))
         self.MatchmakeButton.setChecked(True)
         self.MatchmakeButton.setAutoExclusive(True)
         self.MatchmakeButton.setObjectName("MatchmakeButton")
+        self.MatchmakeButton.setHidden(True)
 
         self.AlignButton = QtWidgets.QRadioButton(parent=self.AlignAlgoBox)
         self.AlignButton.setEnabled(True)
@@ -179,11 +181,13 @@ class Ui_MainWindow(object):
         self.AlignButton.setChecked(False)
         self.AlignButton.setAutoExclusive(True)
         self.AlignButton.setObjectName("AlignButton")
+        self.AlignButton.setHidden(True)
 
         self.SameLengthCheck = QtWidgets.QCheckBox(parent=self.CombinedTab)
         self.SameLengthCheck.setGeometry(QtCore.QRect(780, 190, 191, 20))
         self.SameLengthCheck.setChecked(True)
         self.SameLengthCheck.setObjectName("SameLengthCheck")
+        self.SameLengthCheck.setHidden(True)
 
 
 
@@ -564,12 +568,14 @@ class Ui_MainWindow(object):
         self.AAlignAlgoBox = QtWidgets.QGroupBox(parent=self.AnalyzeTab)
         self.AAlignAlgoBox.setGeometry(QtCore.QRect(420, 70, 331, 91))
         self.AAlignAlgoBox.setObjectName("AAlignAlgoBox")
+        self.AAlignAlgoBox.setHidden(True)
 
         self.AMatchmakeButton = QtWidgets.QRadioButton(parent=self.AAlignAlgoBox)
         self.AMatchmakeButton.setGeometry(QtCore.QRect(20, 30, 301, 20))
         self.AMatchmakeButton.setChecked(True)
         self.AMatchmakeButton.setAutoExclusive(True)
         self.AMatchmakeButton.setObjectName("AMatchmakeButton")
+        self.AMatchmakeButton.setHidden(True)
 
         self.AAlignButton = QtWidgets.QRadioButton(parent=self.AAlignAlgoBox)
         self.AAlignButton.setEnabled(True)
@@ -577,11 +583,13 @@ class Ui_MainWindow(object):
         self.AAlignButton.setChecked(False)
         self.AAlignButton.setAutoExclusive(True)
         self.AAlignButton.setObjectName("AAlignButton")
+        self.AAlignButton.setHidden(True)
 
         self.ASameLengthCheck = QtWidgets.QCheckBox(parent=self.AnalyzeTab)
         self.ASameLengthCheck.setGeometry(QtCore.QRect(430, 170, 191, 20))
         self.ASameLengthCheck.setChecked(True)
         self.ASameLengthCheck.setObjectName("ASameLengthCheck")
+        self.ASameLengthCheck.setHidden(True)
 
 
 
@@ -837,23 +845,23 @@ class Ui_MainWindow(object):
                 self.errorMessageLabel.setHidden(False)
                 return
 
-        # Define the variable for which ChimeraX function should be used for structure alignment
-        if self.MatchmakeButton.isChecked():
-            alignFunction = "mm"
-        elif self.AlignButton.isChecked():
-            alignFunction = "a"
+        # Define the variable for which ChimeraX function should be used for structure alignment (CURRENTLY UNUSED)
+        #if self.MatchmakeButton.isChecked():
+        #    alignFunction = "mm"
+        #elif self.AlignButton.isChecked():
+        #    alignFunction = "a"
 
-        # Read user input for whether the provided reference sequences are the same length
-        if self.SameLengthCheck.isChecked():
-            areSameLength = "y"
-        else:
-            areSameLength = "n"
+        # Read user input for whether the provided reference sequences are the same length (CURRENTLY UNUSED)
+        #if self.SameLengthCheck.isChecked():
+        #    areSameLength = "y"
+        #else:
+        #    areSameLength = "n"
 
 
-        if areSameLength == "n" and alignFunction == "a":
-            self.errorMessageLabel.setText("Align function was chosen but refs aren't same length")
-            self.errorMessageLabel.setHidden(False)
-            return
+        #if areSameLength == "n" and alignFunction == "a":
+        #    self.errorMessageLabel.setText("Align function was chosen but refs aren't same length")
+        #    self.errorMessageLabel.setHidden(False)
+        #    return
 
         # Call the script to generate dropouts
         dropoutCommand = ["python", "Dropout_generator.py", inputFilePath, dropoutsPath, useConservatives, str(dropoutCount)]
@@ -890,8 +898,8 @@ class Ui_MainWindow(object):
         with open("cxScriptSettings.txt", "w") as toWrite:
             toWrite.write(outputFolder + "\n")
             #toWrite.write(str(shuffleCount) + "\n")
-            toWrite.write(alignFunction + "\n")
-            toWrite.write(areSameLength + "\n")
+            #toWrite.write(alignFunction + "\n")
+            #toWrite.write(areSameLength + "\n")
             if useUniStructures:
                 toWrite.write("y\n")
                 toWrite.write(uniIDOne + "\n")
@@ -1079,25 +1087,26 @@ class Ui_MainWindow(object):
             self.AerrorMessageLabel.setHidden(False)
             return
 
-        if self.AMatchmakeButton.isChecked():
-            alignFunction = "mm"
-        elif self.AAlignButton.isChecked():
-            alignFunction = "a"
+        # Set variables based on align algo and same length buttons (CURRENTLY UNUSED)
+        #if self.AMatchmakeButton.isChecked():
+        #    alignFunction = "mm"
+        #elif self.AAlignButton.isChecked():
+        #    alignFunction = "a"
 
-        if self.ASameLengthCheck.isChecked():
-            areSameLength = "y"
-        else:
-            areSameLength = "n"
+        #if self.ASameLengthCheck.isChecked():
+        #    areSameLength = "y"
+        #else:
+        #    areSameLength = "n"
 
-        if areSameLength == "n" and alignFunction == "a":
-            self.AerrorMessageLabel.setText("Align function was chosen but refs aren't same length")
-            self.AerrorMessageLabel.setHidden(False)
-            return
+        #if areSameLength == "n" and alignFunction == "a":
+        #    self.AerrorMessageLabel.setText("Align function was chosen but refs aren't same length")
+        #    self.AerrorMessageLabel.setHidden(False)
+        #    return
         
         with open("cxScriptSettings.txt", "w") as toWrite:
             toWrite.write(inputFolderPath + "\n")
-            toWrite.write(alignFunction + "\n")
-            toWrite.write(areSameLength + "\n")
+            #toWrite.write(alignFunction + "\n")
+            #toWrite.write(areSameLength + "\n")
             toWrite.write(refSource + "\n")
             toWrite.write(uniIDOne + "\n")
             toWrite.write(uniIDTwo)

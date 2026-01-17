@@ -20,16 +20,16 @@ def main():
         lines = file.readlines()
         lines = [line.strip() for line in lines]
 
-    if not len(lines) == 6:
+    if not len(lines) == 4:
         print("Error: Wrong number of arguments")
         return
 
     mainFolderPath = lines[0]
-    rmsdFunction = lines[1] # string of "mm" or "a"
-    refsSameLength = lines[2] # String of "y" or "n"
-    refSource = lines[3] # String of "y" or "n"
-    uniprotIDOne = lines[4]
-    uniprotIDTwo = lines[5]
+    #rmsdFunction = lines[1] # string of "mm" or "a"
+    #refsSameLength = lines[2] # String of "y" or "n"
+    refSource = lines[1] # String of "y" or "n"
+    uniprotIDOne = lines[2]
+    uniprotIDTwo = lines[3]
 
     # Define stuff for PDanalysis library
     min_plddt = 0
@@ -37,24 +37,24 @@ def main():
     exitApp = False
     protein_kwargs = {"neigh_cut":neigh_cut, "min_plddt":min_plddt}
 
-    if (not refsSameLength == "y") and (not refsSameLength == "n"):
-        print("Error: Same length refs argument isn't y or n")
-        return
-    if (rmsdFunction == "mm"):
-        rmsdFunction = "matchmake"
-    elif (rmsdFunction == "a"):
-        rmsdFunction = "align"
-    else:
-        print("Error: align/matchmaker function isn't mm or a")
-        return
+    # CURRENTLY UNSUED: Check arguments for same length refs and superimposing function
+    #if (not refsSameLength == "y") and (not refsSameLength == "n"):
+    #    print("Error: Same length refs argument isn't y or n")
+    #    return
+    #if (rmsdFunction == "mm"):
+    #    rmsdFunction = "matchmake"
+    #elif (rmsdFunction == "a"):
+    #    rmsdFunction = "align"
+    #else:
+    #    print("Error: align/matchmaker function isn't mm or a")
+    #    return
+    #if (not refSource == "y") and (not refSource == "n"):
+    #    print("Error: Ref source argument isn't y or n")
+    #    return
+    rmsdFunction = "matchmake"
     
 
-    if (not refSource == "y") and (not refSource == "n"):
-        print("Error: Ref source argument isn't y or n")
-        return
-    
-
-    # If uniprot (currently unused)
+    # If uniprot (CURRENTLY UNUSED)
     if refSource == "y":
 
         # Get first part of headers from uniprot webserver, print error and exit program if needed
@@ -151,6 +151,7 @@ def main():
     os.makedirs(individualFolderOne)
     os.makedirs(individualFolderTwo)
 
+
     # Align and color based on first reference
     firstCXRMSDList = []
     for i in range(3, numDropouts + 3):
@@ -158,7 +159,6 @@ def main():
 
     maxRMSD = max(firstCXRMSDList)
     minRMSD = min(firstCXRMSDList)
-
     for i in range(0, len(firstCXRMSDList)):
         normalized = (firstCXRMSDList[i] - minRMSD) / (maxRMSD - minRMSD)
         green = (1 - normalized) * 100
@@ -192,7 +192,6 @@ def main():
 
     maxRMSD = max(secondCXRMSDList)
     minRMSD = min(secondCXRMSDList)
-
     for i in range(0, len(secondCXRMSDList)):
         normalized = (secondCXRMSDList[i] - minRMSD) / (maxRMSD - minRMSD)
         green = (1 - normalized) * 100
@@ -202,7 +201,7 @@ def main():
 
 
 
-    # Save as pdb and glb (aligned to first reference)
+    # Save as pdb and glb (aligned to second reference)
     pdbPath = os.path.join(mainFolderPath, "aligned_ref2_" + refNameOne + ".pdb")
     glbPath = os.path.join(mainFolderPath, "aligned_ref2_" + refNameTwo + ".glb")
 
@@ -218,22 +217,35 @@ def main():
     for i in range(numDropouts + 2):
         run(session, "save " + os.path.join(individualFolderTwo, modelList[i]) + ".pdb #" + str(i + 1))
 
+    # Get AA length of each model
+    modelLengths = []
+    for i in range (numDropouts + 2):
+        myModel = session.models[0]
+        residueList = myModel.residues
+        modelLengths.append(len(residueList))
 
-    # ES/RMSD of refs and each shuffle to each ref
-    if (refsSameLength == "y"):
+
+
+    # ES/RMSD of refs if same length
+    if (modelLengths[0] == modelLengths[1]):
         refsESRMSD = ESRMSD(os.path.join(individualFolderTwo, modelList[0]) + ".pdb", os.path.join(individualFolderTwo, modelList[1]) + ".pdb", protein_kwargs)
     else:
         refsESRMSD = ["NA", "NA"]
 
+    # ES/RMSD of each shuffle to each ref if same length
     firstESList = []
     secondESList = []
     firstOtherRMSDList = []
     secondOtherRMSDList = []
     for i in range(numDropouts):
-        theESRMSD = ESRMSD(os.path.join(individualFolderOne, modelList[0]) + ".pdb", os.path.join(individualFolderOne, modelList[i+2]) + ".pdb", protein_kwargs)
-        firstESList.append(theESRMSD[0])
-        firstOtherRMSDList.append(theESRMSD[1])
-        if (refsSameLength == "y"):
+        if (modelLengths[0] == modelLengths[i+2]):
+            theESRMSD = ESRMSD(os.path.join(individualFolderOne, modelList[0]) + ".pdb", os.path.join(individualFolderOne, modelList[i+2]) + ".pdb", protein_kwargs)
+            firstESList.append(theESRMSD[0])
+            firstOtherRMSDList.append(theESRMSD[1])
+        else:
+            firstESList.append("NA")
+            firstOtherRMSDList.append("NA")
+        if (modelLengths[1] == modelLengths[i+2]):
             theESRMSD = ESRMSD(os.path.join(individualFolderTwo, modelList[1]) + ".pdb", os.path.join(individualFolderTwo, modelList[i+2]) + ".pdb", protein_kwargs)
             secondESList.append(theESRMSD[0])
             secondOtherRMSDList.append(theESRMSD[1])
@@ -309,7 +321,7 @@ def cxRMSD(firstModelNum, secondModelNum, rmsdFunction):
     firstBackbone = "#" + str(firstModelNum) + "@ca"
     secondBackbone = "#" + str(secondModelNum) + "@ca"
     modelPair = firstBackbone + " to " + secondBackbone
-    # Align function
+    
     if rmsdFunction == "align":
         run(session, "align " + modelPair)
         return run(session, "rmsd " + modelPair)
