@@ -220,9 +220,10 @@ def main():
     # Get AA length of each model
     modelLengths = []
     for i in range (numDropouts + 2):
-        myModel = session.models[0]
+        myModel = session.models[i]
         residueList = myModel.residues
         modelLengths.append(len(residueList))
+    print(modelLengths)
 
 
 
