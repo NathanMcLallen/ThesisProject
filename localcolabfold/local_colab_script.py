@@ -28,9 +28,10 @@ if (not relaxation == "y") and (not relaxation == "n"):
     raise ValueError("Argument for whether or not to use relaxation isn't y or n")
 
 # Define the command that will be reused for each sequence
-generalCommand = "colabfold_batch"
+generalCommand = "pixi run --manifest-path ~/localcolabfold/pyproject.toml colabfold_batch"
 if relaxation == "y":
-    generalCommand = generalCommand + " --amber"
+    generalCommand = generalCommand + " --amber --use-gpu-relax" #If using relaxation without an NVidia GPU, have to remove the second argument
+    # generalCommand = generalCommand + " --num-relax 1" Only relax top structure, consider using later in final version or if relaxation takes a long time
 if templates == "y":
     generalCommand = generalCommand + " --templates"
 generalCommand = generalCommand + " --num-recycle " + str(numRecycles) + " "
