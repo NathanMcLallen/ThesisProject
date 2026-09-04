@@ -1,0 +1,61 @@
+########################################
+# Program: needle
+# Rundate: Sat 27 Dec 2025 03:21:03
+# Commandline: needle
+#    -auto
+#    -stdout
+#    -asequence emboss_needle-I20251227-032058-0088-63163065-p1m.asequence
+#    -bsequence emboss_needle-I20251227-032058-0088-63163065-p1m.bsequence
+#    -datafile EBLOSUM62
+#    -gapopen 10.0
+#    -gapextend 0.5
+#    -endopen 10.0
+#    -endextend 0.5
+#    -aformat3 pair
+#    -sprotein1
+#    -sprotein2
+# Align_format: pair
+# Report_file: stdout
+########################################
+
+#=======================================
+#
+# Aligned_sequences: 2
+# 1: The_first_sequence
+# 2: The_second_sequence
+# Matrix: EBLOSUM62
+# Gap_penalty: 10.0
+# Extend_penalty: 0.5
+#
+# Length: 202
+# Identity:     195/202 (96.5%)
+# Similarity:   195/202 (96.5%)
+# Gaps:           4/202 ( 2.0%)
+# Score: 1079.0
+# 
+#
+#=======================================
+
+The_first_seq      1 YPFNCSDNIVESASHEYVPIYNFVMFLDQWTYQGKDGINQTGFAPYCRQE     50
+                     ||||||||||||||||||||||||||||||||||||||||||||||||||
+The_second_se      1 YPFNCSDNIVESASHEYVPIYNFVMFLDQWTYQGKDGINQTGFAPYCRQE     50
+
+The_first_seq     51 AVAFE-MMDWLCTAGNLIYSGPERKWLWVVFPRSMVGTMDPVM-WWQAGY     98
+                     ||||| ||||||||.|||||||||||||||||||||||||||| ||||||
+The_second_se     51 AVAFEMMMDWLCTAKNLIYSGPERKWLWVVFPRSMVGTMDPVMFWWQAGY    100
+
+The_first_seq     99 QMNNQRPFQFCTNGQITWLKEDKLVNVCLCWPLCIQMCPMVECCAFDHTK    148
+                     ||||||||||.|||||||||||||||||.|||||||||||||||||||||
+The_second_se    101 QMNNQRPFQFGTNGQITWLKEDKLVNVCQCWPLCIQMCPMVECCAFDHTK    150
+
+The_first_seq    149 MHKPSCIEMDGESVNPVYQVIKQQKPQKAHESTDYFWRIFACRCMKNHKG    198
+                     |||||||||||||||||| |||||||||||||||||||||||||||| ||
+The_second_se    151 MHKPSCIEMDGESVNPVY-VIKQQKPQKAHESTDYFWRIFACRCMKN-KG    198
+
+The_first_seq    199 DN    200
+                     ||
+The_second_se    199 DN    200
+
+
+#---------------------------------------
+#---------------------------------------

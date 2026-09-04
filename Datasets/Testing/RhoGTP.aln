@@ -1,0 +1,81 @@
+########################################
+# Program: needle
+# Rundate: Fri 26 Dec 2025 21:07:06
+# Commandline: needle
+#    -auto
+#    -stdout
+#    -asequence emboss_needle-I20251226-210700-0690-7223238-p1m.asequence
+#    -bsequence emboss_needle-I20251226-210700-0690-7223238-p1m.bsequence
+#    -datafile EBLOSUM62
+#    -gapopen 10.0
+#    -gapextend 0.5
+#    -endopen 10.0
+#    -endextend 0.5
+#    -aformat3 pair
+#    -sprotein1
+#    -sprotein2
+# Align_format: pair
+# Report_file: stdout
+########################################
+
+#=======================================
+#
+# Aligned_sequences: 2
+# 1: Rho_2B_P0DMP2
+# 2: Rho_2C_P0DJJ0
+# Matrix: EBLOSUM62
+# Gap_penalty: 10.0
+# Extend_penalty: 0.5
+#
+# Length: 459
+# Identity:     451/459 (98.3%)
+# Similarity:   453/459 (98.7%)
+# Gaps:           1/459 ( 0.2%)
+# Score: 2281.0
+# 
+#
+#=======================================
+
+Rho_2B_P0DMP2      1 MTSPAKFKKDKEIIAEYDTQVKEIRAQLTEQMKCLDQQCELRVQLLQDLQ     50
+                     ||||||||||||||||||||||||||||||||||||||||||||||||||
+Rho_2C_P0DJJ0      1 MTSPAKFKKDKEIIAEYDTQVKEIRAQLTEQMKCLDQQCELRVQLLQDLQ     50
+
+Rho_2B_P0DMP2     51 DFFRKKAEIEMDYSRNLEKLAERFLAKTCSTKDQQFKKDQNVLSPVNCWN    100
+                     ||||||||||||||||||||||.|||||.|||||||||||||||||||||
+Rho_2C_P0DJJ0     51 DFFRKKAEIEMDYSRNLEKLAEHFLAKTRSTKDQQFKKDQNVLSPVNCWN    100
+
+Rho_2B_P0DMP2    101 LLLNQVKRESRDHTTLSDIYLNNIIPRFVQVSEDSGRLFKKSKEVGQQLQ    150
+                     |||||||.||||||||||||||||||||||||||||||||||||||||||
+Rho_2C_P0DJJ0    101 LLLNQVKWESRDHTTLSDIYLNNIIPRFVQVSEDSGRLFKKSKEVGQQLQ    150
+
+Rho_2B_P0DMP2    151 DDLMKVLNELYSVMKTYHMYNADSISAQSKLKEAEKQEEKQIGKSVKQED    200
+                     ||||||||||||||||||||||||||||||||||||||||||||||||||
+Rho_2C_P0DJJ0    151 DDLMKVLNELYSVMKTYHMYNADSISAQSKLKEAEKQEEKQIGKSVKQED    200
+
+Rho_2B_P0DMP2    201 RQTPRSPDSTANVRIEEKHVRRSSVKKIEKMKEKRQAKYTENKLKAIKAR    250
+                     ||||.|||||||||||||||||||||||||||||.||||||||||||||:
+Rho_2C_P0DJJ0    201 RQTPCSPDSTANVRIEEKHVRRSSVKKIEKMKEKHQAKYTENKLKAIKAQ    250
+
+Rho_2B_P0DMP2    251 NEYLLALEATNASVFKYYIHDLSDLID-CCDLGYHASLNRALRTFLSAEL    299
+                     ||||||||||||||||||||||||||| ||||||||||||||||||||||
+Rho_2C_P0DJJ0    251 NEYLLALEATNASVFKYYIHDLSDLIDQCCDLGYHASLNRALRTFLSAEL    300
+
+Rho_2B_P0DMP2    300 NLEQSKHEGLDAIENAVENLDATSDKQRLMEMYNNVFCPPMKFEFQPHMG    349
+                     ||||||||||||||||||||||||||||||||||||||||||||||||||
+Rho_2C_P0DJJ0    301 NLEQSKHEGLDAIENAVENLDATSDKQRLMEMYNNVFCPPMKFEFQPHMG    350
+
+Rho_2B_P0DMP2    350 DMASQLCAQQPVQSELLQRCQQLQSRLSTLKIENEEVKKTMEATLQTIQD    399
+                     ||||||||||||||||:|||||||||||||||||||||||||||||||||
+Rho_2C_P0DJJ0    351 DMASQLCAQQPVQSELVQRCQQLQSRLSTLKIENEEVKKTMEATLQTIQD    400
+
+Rho_2B_P0DMP2    400 IVTVEDFDVSDCFQYSNSMESVKSTVSETFMSKPSIAKRRANQQETEQFY    449
+                     ||||||||||||||||||||||||||||||||||||||||||||||||||
+Rho_2C_P0DJJ0    401 IVTVEDFDVSDCFQYSNSMESVKSTVSETFMSKPSIAKRRANQQETEQFY    450
+
+Rho_2B_P0DMP2    450 FTVRECYGF    458
+                     |||||||||
+Rho_2C_P0DJJ0    451 FTVRECYGF    459
+
+
+#---------------------------------------
+#---------------------------------------

@@ -1,0 +1,73 @@
+########################################
+# Program: needle
+# Rundate: Fri 26 Dec 2025 21:05:49
+# Commandline: needle
+#    -auto
+#    -stdout
+#    -asequence emboss_needle-I20251226-210546-0686-41071336-p2m.asequence
+#    -bsequence emboss_needle-I20251226-210546-0686-41071336-p2m.bsequence
+#    -datafile EBLOSUM62
+#    -gapopen 10.0
+#    -gapextend 0.5
+#    -endopen 10.0
+#    -endextend 0.5
+#    -aformat3 pair
+#    -sprotein1
+#    -sprotein2
+# Align_format: pair
+# Report_file: stdout
+########################################
+
+#=======================================
+#
+# Aligned_sequences: 2
+# 1: Long_opsin_P04000
+# 2: Medium_opsin_P04001
+# Matrix: EBLOSUM62
+# Gap_penalty: 10.0
+# Extend_penalty: 0.5
+#
+# Length: 364
+# Identity:     351/364 (96.4%)
+# Similarity:   357/364 (98.1%)
+# Gaps:           0/364 ( 0.0%)
+# Score: 1887.0
+# 
+#
+#=======================================
+
+Long_opsin_P0      1 MAQQWSLQRLAGRHPQDSYEDSTQSSIFTYTNSNSTRGPFEGPNYHIAPR     50
+                     ||||||||||||||||||||||||||||||||||||||||||||||||||
+Medium_opsin_      1 MAQQWSLQRLAGRHPQDSYEDSTQSSIFTYTNSNSTRGPFEGPNYHIAPR     50
+
+Long_opsin_P0     51 WVYHLTSVWMIFVVTASVFTNGLVLAATMKFKKLRHPLNWILVNLAVADL    100
+                     ||||||||||||||.|||||||||||||||||||||||||||||||||||
+Medium_opsin_     51 WVYHLTSVWMIFVVIASVFTNGLVLAATMKFKKLRHPLNWILVNLAVADL    100
+
+Long_opsin_P0    101 AETVIASTISIVNQVSGYFVLGHPMCVLEGYTVSLCGITGLWSLAIISWE    150
+                     ||||||||||:||||.||||||||||||||||||||||||||||||||||
+Medium_opsin_    101 AETVIASTISVVNQVYGYFVLGHPMCVLEGYTVSLCGITGLWSLAIISWE    150
+
+Long_opsin_P0    151 RWMVVCKPFGNVRFDAKLAIVGIAFSWIWAAVWTAPPIFGWSRYWPHGLK    200
+                     ||||||||||||||||||||||||||||||||||||||||||||||||||
+Medium_opsin_    151 RWMVVCKPFGNVRFDAKLAIVGIAFSWIWAAVWTAPPIFGWSRYWPHGLK    200
+
+Long_opsin_P0    201 TSCGPDVFSGSSYPGVQSYMIVLMVTCCIIPLAIIMLCYLQVWLAIRAVA    250
+                     |||||||||||||||||||||||||||||.||:||:||||||||||||||
+Medium_opsin_    201 TSCGPDVFSGSSYPGVQSYMIVLMVTCCITPLSIIVLCYLQVWLAIRAVA    250
+
+Long_opsin_P0    251 KQQKESESTQKAEKEVTRMVVVMIFAYCVCWGPYTFFACFAAANPGYAFH    300
+                     |||||||||||||||||||||||:.|:|.|||||.||||||||||||.||
+Medium_opsin_    251 KQQKESESTQKAEKEVTRMVVVMVLAFCFCWGPYAFFACFAAANPGYPFH    300
+
+Long_opsin_P0    301 PLMAALPAYFAKSATIYNPVIYVFMNRQFRNCILQLFGKKVDDGSELSSA    350
+                     ||||||||:|||||||||||||||||||||||||||||||||||||||||
+Medium_opsin_    301 PLMAALPAFFAKSATIYNPVIYVFMNRQFRNCILQLFGKKVDDGSELSSA    350
+
+Long_opsin_P0    351 SKTEVSSVSSVSPA    364
+                     ||||||||||||||
+Medium_opsin_    351 SKTEVSSVSSVSPA    364
+
+
+#---------------------------------------
+#---------------------------------------
