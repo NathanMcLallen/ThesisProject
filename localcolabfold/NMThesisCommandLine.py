@@ -5,6 +5,7 @@ import os
 parser = argparse.ArgumentParser()
 parser.add_argument("input_path", type=str, help="Alignment file, FASTA file, or folder depending on step")
 parser.add_argument("-o", "--output", type=str, help="FASTA file, empty folder, or none depending on step")
+parser.add_argument("-l", "--localcolabfold_path", type=str, help="Path to pyproject.toml file for localcolabfold")
 parser.add_argument("-x", "--cx_path", type=str)
 parser.add_argument("-s", "--step", type=int, choices=[0, 1, 2, 3], help="0 for all steps, 1 to generate dropouts, 2 for AF predictions, 3 for analysis")
 parser.add_argument("-rc", "--num_recycles", type=int, choices=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
@@ -25,6 +26,12 @@ else:
     stepToDo = 0
 
 # Errors for invalid input arguments or argument combinations
+if not args.localcolabfold_path and (stepToDo == 0 or stepToDo == 2):
+    raise Exception("Localcolabfold pyproject.toml path argument is required for step 2 or all steps")
+elif stepToDo == 0 or stepToDo == 2:
+    if not os.path.exists(args.localcolabfold_path):
+        raise Exception("Localcolabfold pyproject.toml path is incorrect")
+    
 if not args.cx_path and (stepToDo == 0 or stepToDo == 3):
     raise Exception("ChimeraX path argument is required for step 3 or all steps")
 elif stepToDo == 0 or stepToDo == 3:
@@ -89,7 +96,7 @@ if stepToDo == 0 or stepToDo == 1:
     os.system(" ".join(dropoutCommand))
 
 if stepToDo == 0 or stepToDo == 2:
-    foldingCommand = ["python", "local_colab_script.py", dropoutsPath, outputFolder, "y", str(numRecycles), useTemplates, useRelaxation]
+    foldingCommand = ["python", "local_colab_script.py", args.localcolabfold_path, dropoutsPath, outputFolder, "y", str(numRecycles), useTemplates, useRelaxation]
     os.system(" ".join(foldingCommand))
 
 if stepToDo == 0 or stepToDo == 3:

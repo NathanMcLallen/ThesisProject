@@ -3,17 +3,20 @@ import sys
 from Bio import SeqIO #type: ignore
 
 # Read command line arguments
-if not len(sys.argv) == 7:
-    raise Exception("Wrong number of args, should have 6 args but got " + str(len(sys.argv) - 1))
+if not len(sys.argv) == 8:
+    raise Exception("Wrong number of args, should have 7 args but got " + str(len(sys.argv) - 1))
 
-inputFile = sys.argv[1]
-outputFolder = sys.argv[2]
-foldRefs = sys.argv[3]
-numRecycles = sys.argv[4]
-templates  = sys.argv[5]
-relaxation  = sys.argv[6]
+tomlPath = sys.argv[1]
+inputFile = sys.argv[2]
+outputFolder = sys.argv[3]
+foldRefs = sys.argv[4]
+numRecycles = sys.argv[5]
+templates  = sys.argv[6]
+relaxation  = sys.argv[7]
 
 # Various errors for bad arguments
+if not os.path.exists(tomlPath):
+    raise FileNotFoundError("Provided localcolabfold pyproject.toml path doesn't exist")
 if not os.path.exists(inputFile):
     raise FileNotFoundError(inputFile + " doesn't exist")
 if (not foldRefs == "y") and (not foldRefs == "n"):
@@ -28,7 +31,7 @@ if (not relaxation == "y") and (not relaxation == "n"):
     raise ValueError("Argument for whether or not to use relaxation isn't y or n")
 
 # Define the command that will be reused for each sequence
-generalCommand = "pixi run --manifest-path ~/localcolabfold/pyproject.toml colabfold_batch"
+generalCommand = "pixi run --manifest-path " + tomlPath + " colabfold_batch"
 if relaxation == "y":
     generalCommand = generalCommand + " --amber --use-gpu-relax" #If using relaxation without an NVidia GPU, have to remove the second argument
     # generalCommand = generalCommand + " --num-relax 1" Only relax top structure, consider using later in final version or if relaxation takes a long time

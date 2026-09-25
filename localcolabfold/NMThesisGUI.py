@@ -151,7 +151,13 @@ class Ui_MainWindow(object):
         self.RecyclesInput.setGeometry(QtCore.QRect(610, 120, 113, 21))
         self.RecyclesInput.setObjectName("RecyclesInput")
 
+        self.lcfPathLabel = QtWidgets.QLabel(parent=self.CombinedTab)
+        self.lcfPathLabel.setGeometry(QtCore.QRect(100, 260, 240, 21))
+        self.lcfPathLabel.setObjectName("lcfPathLabel")
 
+        self.lcfPathEntry = QtWidgets.QLineEdit(parent=self.CombinedTab)
+        self.lcfPathEntry.setGeometry(QtCore.QRect(30, 280, 351, 21))
+        self.lcfPathEntry.setObjectName("lcfPathEntry")
 
         self.ChimeraPathLabel = QtWidgets.QLabel(parent=self.CombinedTab)
         self.ChimeraPathLabel.setGeometry(QtCore.QRect(540, 260, 141, 21))
@@ -436,7 +442,13 @@ class Ui_MainWindow(object):
         self.FOutputEntry.setGeometry(QtCore.QRect(520, 300, 261, 21))
         self.FOutputEntry.setObjectName("FOutputEntry")
 
+        self.FlcfPathLabel = QtWidgets.QLabel(parent=self.FoldTab)
+        self.FlcfPathLabel.setGeometry(QtCore.QRect(500, 230, 240, 21))
+        self.FlcfPathLabel.setObjectName("FlcfPathLabel")
 
+        self.FlcfPathEntry = QtWidgets.QLineEdit(parent=self.FoldTab)
+        self.FlcfPathEntry.setGeometry(QtCore.QRect(430, 250, 351, 21))
+        self.FlcfPathEntry.setObjectName("FlcfPathEntry")
 
         self.FRunButton = QtWidgets.QPushButton(parent=self.FoldTab)
         self.FRunButton.setGeometry(QtCore.QRect(510, 400, 121, 32))
@@ -746,6 +758,10 @@ class Ui_MainWindow(object):
         self.AUniIDBox.setTitle(_translate("MainWindow", "Enter Uniprot IDs"))
         self.AUniIDLabelOne.setText(_translate("MainWindow", "First"))
         self.AUniIDLabelTwo.setText(_translate("MainWindow", "Second"))
+        self.lcfPathLabel.setText(_translate("MainWindow", "localcolabfold pyproject.toml path"))
+        self.lcfPathEntry.setText(_translate("MainWindow", "~/localcolabfold/pyproject.toml"))
+        self.FlcfPathLabel.setText(_translate("MainWindow", "localcolabfold pyproject.toml path"))
+        self.FlcfPathEntry.setText(_translate("MainWindow", "~/localcolabfold/pyproject.toml"))
         self.ChimeraPathLabel.setText(_translate("MainWindow", "ChimeraX exe path"))
         self.ChimeraPathEntry.setText(_translate("MainWindow", "/lib/ucsf-chimerax/bin/ChimeraX"))
         self.AChimeraPathLabel.setText(_translate("MainWindow", "ChimeraX exe path"))
@@ -838,6 +854,13 @@ class Ui_MainWindow(object):
             self.errorMessageLabel.setHidden(False)
             return
         
+        # Check that the provided localcolabfold path is correct
+        lcfPath = self.lcfPathEntry.text()
+        if not os.path.exists(lcfPath):
+                self.errorMessageLabel.setText("LocalColabFold path doesn't exist")
+                self.errorMessageLabel.setHidden(False)
+                return
+        
         # Check that the provided ChimeraX is correct
         cxPath = self.ChimeraPathEntry.text()
         if not os.path.exists(cxPath):
@@ -887,7 +910,7 @@ class Ui_MainWindow(object):
         #    return
             
         # Call the script for using local colab fold to predict structures
-        foldingCommand = ["python", "local_colab_script.py", dropoutsPath, outputFolder, foldRefs, numRecycles, useTemplates, useRelaxation]
+        foldingCommand = ["python", "local_colab_script.py", lcfPath, dropoutsPath, outputFolder, foldRefs, numRecycles, useTemplates, useRelaxation]
         os.system(" ".join(foldingCommand))
         
         self.StatusLabel.setText("Analyzing folds")
@@ -1000,6 +1023,13 @@ class Ui_MainWindow(object):
             self.FerrorMessageLabel.setHidden(False)
             return
         
+        # Check that the provided localcolabfold path is correct
+        lcfPath = self.FlcfPathEntry.text()
+        if not os.path.exists(lcfPath):
+                self.FerrorMessageLabel.setText("LocalColabFold path doesn't exist")
+                self.FerrorMessageLabel.setHidden(False)
+                return
+        
         # Define the variables for whether colabfold should use templates and relaxation
         if self.FTemplatesCheck.isChecked():
             useTemplates = "y"
@@ -1045,7 +1075,7 @@ class Ui_MainWindow(object):
         #    return
 
         # Call the script to use local colab fold for structure prediction
-        foldingCommand = ["python", "local_colab_script.py", inputFilePath, outputFolder, shouldFoldRefs, numRecycles, useTemplates, useRelaxation]
+        foldingCommand = ["python", "local_colab_script.py", lcfPath, inputFilePath, outputFolder, shouldFoldRefs, numRecycles, useTemplates, useRelaxation]
         os.system(" ".join(foldingCommand))
         
         self.FStatusLabel.setText("Finished folding")
